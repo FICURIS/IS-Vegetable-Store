@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import router from './router.js';
+import router from './Routers/router.js';
 import fileUpload from 'express-fileupload';
 
 const PORT = 5000;
@@ -16,7 +16,7 @@ app.use('/api', router)
 async function startApp() {
     try {
         await mongoose.connect(DB_URL)
-        app.listen(PORT, () => console.log('SERVET STARTED ON PORT ' + PORT))
+        app.listen(PORT, () => console.log('SERVER STARTED ON PORT ' + PORT))
     } catch (e) {
         console.log(e)
     }
