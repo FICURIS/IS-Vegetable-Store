@@ -1,0 +1,15 @@
+import mongoose from "mongoose"
+
+const OrderItems = new mongoose.Schema({
+    IdOrders:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Orders',
+        required: true
+    },
+    IdCartItem:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'CartItem'
+    },
+    Quantity:{type: Number, min: 1, required: true},
+    Price:{type: Number, required: true}
+})
