@@ -13,3 +13,5 @@ const OrderItems = new mongoose.Schema({
     Quantity:{type: Number, min: 1, required: true},
     Price:{type: Number, required: true}
 })
+
+export default mongoose.model('OrderItems',OrderItems)

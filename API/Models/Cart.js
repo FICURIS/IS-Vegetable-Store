@@ -7,3 +7,5 @@ const Cart = new mongoose.Schema({
         required: true
     }
 })
+
+export default mongoose.model('Cart',Cart)

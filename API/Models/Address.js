@@ -11,3 +11,5 @@ const Address = new mongoose.Schema({
     House:{type: String, required: true},
     Apartment:{type: String}
 })
+
+export default mongoose.model('Address',Address)

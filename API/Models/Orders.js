@@ -19,3 +19,5 @@ const Orders = new mongoose.Schema({
     DateOrder: {type: Date, default: Date.now},
     TotalPrice: {type: Number, required: true}
 })
+
+export default mongoose.model('Orders',Orders)

@@ -12,3 +12,5 @@ const UsersRoles = new mongoose.Schema({
         required: true
     }
 })
+
+export default mongoose.model('UsersRoles',UsersRoles)

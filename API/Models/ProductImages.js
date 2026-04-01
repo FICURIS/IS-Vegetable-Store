@@ -8,3 +8,5 @@ const ProductImages = new mongoose.Schema({
     },
     ImageURL:{type: String}
 })
+
+export default mongoose.model('ProductImages',ProductImages)

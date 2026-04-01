@@ -9,3 +9,5 @@ const ProductDescription = new mongoose.Schema({
     Variety:{type: String},
     Text:{type: String}
 })
+
+export default mongoose.model('ProductDescription',ProductDescription)

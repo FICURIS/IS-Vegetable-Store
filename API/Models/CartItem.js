@@ -14,3 +14,5 @@ const CartItem = new mongoose.Schema({
     Quantity:{type: Number, min: 1, requried: true},
     PriceAtMoment:{type: Number, required: true}
 })
+
+export default mongoose.model('CartItem',CartItem)

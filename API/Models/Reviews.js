@@ -14,3 +14,5 @@ const Reviews = new mongoose.Schema({
     Rating:{type: Number, min: 1, max: 5},
     Text:{type: String}
 })
+
+export default mongoose.model('Reviews',Reviews)
