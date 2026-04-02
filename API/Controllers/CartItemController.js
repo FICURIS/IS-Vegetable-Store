@@ -1,4 +1,4 @@
-import  CartItem from '../Models/CartItem';
+import  CartItem from '../Models/CartItem.js';
 import CartItemService from "../Services/CartItemService.js";
 
 class CartItemController {

@@ -1,5 +1,5 @@
-import Cart from '../Models/Cart';
-import CartItem from '../Models/CartItem';
+import Cart from '../Models/Cart.js';
+import CartItem from '../Models/CartItem.js';
 
 class CartService {
     async create(userId) {

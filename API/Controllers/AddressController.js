@@ -1,4 +1,4 @@
-import  Address from '../Models/Address';
+import  Address from '../Models/Address.js';
 import AddressService from "../Services/AddressService.js";
 
 class AddressController {
