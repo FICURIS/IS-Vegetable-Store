@@ -7,7 +7,7 @@ const Reviews = new mongoose.Schema({
         required: true
     },
     IdOrders:{
-        type: mongoose.Schema.Types.ObfectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Orders'
     },
     Date:{type: Date, default: Date.now},

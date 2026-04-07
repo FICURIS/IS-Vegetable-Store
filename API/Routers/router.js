@@ -3,6 +3,7 @@ import PostController from '../Controllers/PostController.js';
 import ProductController from '../Controllers/ProductController.js';
 import AddressController from '../Controllers/AddressController.js';
 import CartController from '../Controllers/CartController.js';
+import CartItemController from '../Controllers/CartItemController.js';
 import CategoriesController from '../Controllers/CategoriesController.js';
 import OrderItemsController from '../Controllers/OrderItemsController.js';
 import OrdersController from '../Controllers/OrdersController.js';
