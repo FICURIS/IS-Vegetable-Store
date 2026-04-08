@@ -1,5 +1,5 @@
 import  Reviews from '../Models/Reviews.js';
-import ReviewsService from "../Services/ReviewsService.js";
+import ReviewsService from "../../Services/ReviewsService.js";
 
 class ReviewsController {
     async create(req, res) {

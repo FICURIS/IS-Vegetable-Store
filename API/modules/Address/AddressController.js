@@ -1,5 +1,5 @@
-import  Address from '../Models/Address.js';
-import AddressService from "../Services/AddressService.js";
+import  Address from './Address.js';
+import AddressService from "./AddressService.js/index.js";
 
 class AddressController {
     async create(req, res) {

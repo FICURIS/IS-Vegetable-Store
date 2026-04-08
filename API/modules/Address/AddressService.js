@@ -1,4 +1,4 @@
-import Address from "../Models/Address.js";
+import Address from "./Address.js";
 
 class AddressService {
     async create(address) {

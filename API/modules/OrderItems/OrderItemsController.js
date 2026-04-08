@@ -1,5 +1,5 @@
 import  OrderItems from '../Models/OrderItems.js';
-import OrderItemsService from "../Services/OrderItemsService.js";
+import OrderItemsService from "./OrderItemsService.js";
 
 class OrderItemsController {
     async create(req, res) {

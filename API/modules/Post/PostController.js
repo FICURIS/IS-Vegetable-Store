@@ -1,5 +1,5 @@
 import  Post from '../Models/Post.js';
-import PostService from "../Services/PostService.js";
+import PostService from "./PostService.js/index.js";
 
 class Controller {
     async create(req, res) {
