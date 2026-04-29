@@ -1,5 +1,5 @@
-import ProductDescription from "../Models/ProductDescription.js";
-import fileService from '../Services/fileService.js';
+import ProductDescription from "./ProductDescription.js";
+import fileService from '../Post/fileService.js';
 
 class ProductDescriptionService{
     async create(productDescription, picture) {

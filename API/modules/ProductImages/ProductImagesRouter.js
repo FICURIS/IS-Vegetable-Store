@@ -1,5 +1,5 @@
 import Router from 'express'
-import ProductImagesController from '../Controllers/ProductImagesController.js';
+import ProductImagesController from './ProductImagesController.js';
 
 const router = new Router()
 

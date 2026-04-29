@@ -1,5 +1,5 @@
-import Roles from "../Models/Roles.js";
-import fileService from '../Services/fileService.js';
+import Roles from "./Roles.js";
+import fileService from '../Post/fileService.js';
 
 class RolesService{
     async create(role, picture) {

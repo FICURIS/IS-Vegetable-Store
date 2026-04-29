@@ -1,5 +1,5 @@
-import CartItem from "../Models/CartItem.js";
-import fileService from '../Services/fileService.js';
+import CartItem from "./CartItem.js";
+import fileService from '../Post/fileService.js';
 
 class CartItemService{
     async create(cartItem, picture) {

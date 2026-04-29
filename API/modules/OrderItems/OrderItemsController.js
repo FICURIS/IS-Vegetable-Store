@@ -1,4 +1,4 @@
-import  OrderItems from '../Models/OrderItems.js';
+import  OrderItems from './OrderItems.js';
 import OrderItemsService from "./OrderItemsService.js";
 
 class OrderItemsController {

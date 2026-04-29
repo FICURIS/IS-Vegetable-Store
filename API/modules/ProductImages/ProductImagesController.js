@@ -1,5 +1,5 @@
-import  ProductImages from '../Models/ProductImages.js';
-import ProductImagesService from "./ProductImagesService.js/index.js";
+import  ProductImages from './ProductImages.js';
+import ProductImagesService from "./ProductImagesService.js";
 
 class ProductImagesController {
     async create(req, res) {

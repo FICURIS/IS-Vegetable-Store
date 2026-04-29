@@ -1,5 +1,5 @@
-import  UsersRoles from '../Models/UsersRoles.js';
-import UsersRolesService from "../Services/UsersRolesService.js";
+import  UsersRoles from './UsersRoles.js';
+import UsersRolesService from "./UsersRolesService.js";
 
 class UsersRolesController {
     async create(req, res) {

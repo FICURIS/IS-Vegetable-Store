@@ -1,4 +1,4 @@
-import Reviews from "../Models/Reviews.js";
+import Reviews from "./Reviews.js";
 
 class ReviewService {
     async create(data) {

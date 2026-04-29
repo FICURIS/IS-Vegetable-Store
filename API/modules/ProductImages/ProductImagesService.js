@@ -1,5 +1,5 @@
-import ProductImages from "../Models/ProductImages.js";
-import fileService from './fileService.js';
+import ProductImages from "./ProductImages.js";
+import fileService from '../Post/fileService.js';
 
 class ProductImagesService{
     async create(productImage, picture) {

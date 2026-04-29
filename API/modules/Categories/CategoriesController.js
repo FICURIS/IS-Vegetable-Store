@@ -1,4 +1,4 @@
-import  Categories from '../Models/Categories.js';
+import  Categories from './Categories.js';
 import CategoriesService from "./CategoryService.js";
 
 class CategoriesController {

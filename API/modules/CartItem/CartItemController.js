@@ -1,5 +1,5 @@
-import  CartItem from '../Models/CartItem.js';
-import CartItemService from "../../Services/CartItemService.js";
+import  CartItem from './CartItem.js';
+import CartItemService from "./CartItemService.js";
 
 class CartItemController {
     async create(req, res) {

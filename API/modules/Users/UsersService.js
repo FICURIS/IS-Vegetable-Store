@@ -1,4 +1,4 @@
-import User from "../Models/Users.js";
+import User from "./Users.js";
 
 class UserService {
     async create(data) {

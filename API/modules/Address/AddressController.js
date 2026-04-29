@@ -1,5 +1,5 @@
 import  Address from './Address.js';
-import AddressService from "./AddressService.js/index.js";
+import AddressService from "./AddressService.js";
 
 class AddressController {
     async create(req, res) {

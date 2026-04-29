@@ -1,5 +1,5 @@
-import OrdersStatus from "../Models/OrdersStatus.js";
-import fileService from '../Services/fileService.js';
+import OrdersStatus from "./OrdersStatus.js";
+import fileService from '../Post/fileService.js';
 
 class OrderStatusService{
     async create(orderStatus, picture) {

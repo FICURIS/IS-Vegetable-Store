@@ -1,4 +1,4 @@
-import OrderItem from '../Models/OrderItems.js';
+import OrderItem from './OrderItems.js';
 
 class OrderItemService{
     async create(orderItem, picture) {

@@ -1,5 +1,5 @@
-import  ProductDescription from '../Models/ProductDescription.js';
-import ProductDescriptionService from "./ProductDescriptionService.js/index.js";
+import  ProductDescription from './ProductDescription.js';
+import ProductDescriptionService from "./ProductDescriptionService.js";
 
 class ProductDescriptionController {
     async create(req, res) {

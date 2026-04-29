@@ -1,4 +1,4 @@
-import  Cart from '../Models/Cart.js';
+import  Cart from './Cart.js';
 import CartService from "./CartService.js";
 
 class CartController {

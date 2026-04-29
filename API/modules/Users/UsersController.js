@@ -1,5 +1,5 @@
-import  User from '../Models/Users.js';
-import UsersService from "../Services/UsersService.js";
+import  User from './Users.js';
+import UsersService from "./UsersService.js";
 
 class UsersController {
     async create(req, res) {
