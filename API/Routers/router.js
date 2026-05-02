@@ -5,7 +5,8 @@ import CartItemRouter from '../modules/CartItem/CartItemRouter.js'
 import CategoriesRouter from '../modules/Categories/CategoriesRouter.js'
 import OrderItemsRouter from '../modules/OrderItems/OrderItemsRouter.js'
 import OrdersRouter from '../modules/Orders/OrdersRouter.js'
+import UserRouter from '../modules/Users/UsersRouter.js'
 
 const router = new Router()
 
-export default router;
+export default UserRouter;

@@ -13,6 +13,7 @@ app.use(express.static('static'))
 app.use(fileUpload({}))
 app.use('/api', router)
 
+
 async function startApp() {
     try {
         await mongoose.connect(DB_URL)

@@ -15,6 +15,7 @@ class AddressController {
     async getAll(req, res) {
         try {
             const addresses = await AddressService.getAll();
+            console.log(1)
             return res.json(addresses);
         } catch (e){
          res.status(500).json(e)

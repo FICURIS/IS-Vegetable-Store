@@ -3,6 +3,7 @@ import User from "./Users.js";
 class UserService {
     async create(data) {
         try {
+            console.log(data)
             const user = await User.create(data);
             return user;
         } catch (e) {
@@ -28,7 +29,8 @@ class UserService {
 
     async update(id, data) {
         try {
-            return await User.findByIdAndUpdate(id, data, { new: true });
+            const user =  await User.findByIdAndUpdate(id, { $set : data});
+            return User.findById(id)
         } catch (e) {
             throw new Error(`Ошибка обновления пользователя: ${e.message}`);
         }

@@ -4,8 +4,7 @@ import UsersService from "./UsersService.js";
 class UsersController {
     async create(req, res) {
         try {
-            console.log(req.files)
-            const user = await UsersService.create(req.body, req.files.picture);
+            const user = await UsersService.create(req.body);
             res.json(user)
         } catch(e) {
             res.status(500).json(e)
@@ -30,7 +29,7 @@ class UsersController {
     }
     async update(req, res) {
         try {
-            const udpatedUser = await UsersService.update(req.body);
+            const udpatedUser = await UsersService.update(req.params.id, req.body);
             return res.json(udpatedUsers)
         } catch (e){
             res.status(500).json(e.message)
