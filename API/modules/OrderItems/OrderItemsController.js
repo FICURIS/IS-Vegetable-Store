@@ -1,47 +1,87 @@
-import  OrderItems from './OrderItems.js';
 import OrderItemsService from "./OrderItemsService.js";
 
 class OrderItemsController {
     async create(req, res) {
         try {
-            console.log(req.files)
-            const orderItem = await OrderItemsService.create(req.body, req.files.picture);
-            res.json(orderItem)
-        } catch(e) {
-            res.status(500).json(e)
+            const {
+                IdOrders,
+                IdCartItem,
+                Quantity,
+                Price
+            } = req.body;
+
+            const orderItem = await OrderItemsService.create({
+                IdOrders,
+                IdCartItem,
+                Quantity,
+                Price
+            });
+
+            res.json(orderItem);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания позиции заказа: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
             const orderItems = await OrderItemsService.getAll();
-            return res.json(orderItems);
-        } catch (e){
-         res.status(500).json(e)
+            res.json(orderItems);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const orderItem = await OrderItemsService.getOne(req.params.id)
-                return res.json(orderItem)
-        } catch (e){
-            res.status(500).json(e)
+            const orderItem = await OrderItemsService.getOne(id);
+
+            if (!orderItem) {
+                return res.status(404).json({
+                    error: "Элемент заказа не найден"
+                });
+            }
+
+            res.json(orderItem);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+
         try {
-            const udpatedOrderItem = await OrderItemsService.update(req.body);
-            return res.json(udpatedOrderItem)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedOrderItem = await OrderItemsService.update(id, req.body);
+            res.json(updatedOrderItem);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const orderItem = await OrderItemsService.delete(req.params.id);
-            return res.json(orderItem)
-        } catch (e){
-            res.status(500).json(e)
+            await OrderItemsService.delete(id);
+
+            res.json({
+                message: "Элемент заказа удален"
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

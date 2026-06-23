@@ -1,47 +1,89 @@
-import  Roles from './Roles.js';
 import RolesService from "./RolesService.js";
 
 class RolesController {
     async create(req, res) {
+        const { name } = req.body;
+
         try {
-            console.log(req.files)
-            const role = await RolesService.create(req.body, req.files.picture);
-            res.json(role)
-        } catch(e) {
-            res.status(500).json(e)
+            if (!name) {
+                return res.status(400).json({
+                    error: "Название роли обязательно"
+                });
+            }
+
+            const role = await RolesService.create({ name });
+            res.json(role);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания роли: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
             const roles = await RolesService.getAll();
-            return res.json(roles);
-        } catch (e){
-         res.status(500).json(e)
+            res.json(roles);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const role = await RolesService.getOne(req.params.id)
-                return res.json(role)
-        } catch (e){
-            res.status(500).json(e)
+            const role = await RolesService.getOne(id);
+
+            if (!role) {
+                return res.status(404).json({
+                    error: "Роль не найдена"
+                });
+            }
+
+            res.json(role);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+
         try {
-            const udpatedRole = await RolesService.update(req.body);
-            return res.json(udpatedRole)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedRole = await RolesService.update(id, req.body);
+            res.json(updatedRole);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const role = await RolesService.delete(req.params.id);
-            return res.json(role)
-        } catch (e){
-            res.status(500).json(e)
+            const deletedRole = await RolesService.delete(id);
+
+            if (!deletedRole) {
+                return res.status(404).json({
+                    error: "Роль не найдена"
+                });
+            }
+
+            res.json({
+                message: "Роль удалена",
+                role: deletedRole
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

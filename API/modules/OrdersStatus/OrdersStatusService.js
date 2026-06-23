@@ -1,39 +1,25 @@
 import OrdersStatus from "./OrdersStatus.js";
-import fileService from '../Post/fileService.js';
 
-class OrderStatusService{
-    async create(orderStatus, picture) {
-            const fileName = fileService.saveFile(picture);
-            const createdOrderStatus = await OrderStatus.create({...orderStatus, picture: fileName});
-            return createdOrderStatus;
+class OrdersStatusService {
+    async create(data) {
+        return await OrdersStatus.create(data);
     }
 
     async getAll() {
-            const ordersStatus = await OrderStatus.find();
-            return ordersStatus;
+        return await OrdersStatus.find();
     }
 
     async getOne(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const orderStatus = await OrderStatus.findById(id)
-            return orderStatus;
+        return await OrdersStatus.findById(id);
     }
-    async update(orderStatus) {
-            if(!orderStatus._id) {
-                throw new Error('не указан ID');
-            }
-            const udpatedOrderStatus = await OrderStatus.findByIdAndUpdate(orderStatus._id, orderStatus, {new: true})
-            return updateOrderStatus;
+
+    async update(id, data) {
+        return await OrdersStatus.findByIdAndUpdate(id, data, { new: true });
     }
+
     async delete(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const orderStatus = await OrderStatus.findByIdAndDelete(id)
-            return orderStatus;
+        return await OrdersStatus.findByIdAndDelete(id);
     }
 }
 
-export default new OrderStatusService();
+export default new OrdersStatusService();

@@ -1,48 +1,90 @@
-import  Address from './Address.js';
 import AddressService from "./AddressService.js";
 
 class AddressController {
     async create(req, res) {
+        const {
+            IdUsers,
+            City,
+            Street,
+            House,
+            Apartment
+        } = req.body;
+
         try {
-            console.log(req.files)
-            const address = await AddressService.create(req.body, req.files.picture);
-            res.json(address)
-        } catch(e) {
-            res.status(500).json(e)
+            const address = await AddressService.create({
+                IdUsers,
+                City,
+                Street,
+                House,
+                Apartment
+            });
+
+            res.json(address);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания адреса: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
             const addresses = await AddressService.getAll();
-            console.log(1)
-            return res.json(addresses);
-        } catch (e){
-         res.status(500).json(e)
+            res.json(addresses);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const address = await AddressService.getOne(req.params.id)
-                return res.json(address)
-        } catch (e){
-            res.status(500).json(e)
+            const address = await AddressService.getOne(id);
+
+            if (!address) {
+                return res.status(404).json({
+                    error: "Адрес не найден"
+                });
+            }
+
+            res.json(address);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+        const data = req.body;
+
         try {
-            const udpatedAdress = await AdressService.update(req.body);
-            return res.json(udpatedAdress)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedAddress = await AddressService.update(id, data);
+            res.json(updatedAddress);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const address = await AddressService.delete(req.params.id);
-            return res.json(address)
-        } catch (e){
-            res.status(500).json(e)
+            await AddressService.delete(id);
+
+            res.json({
+                message: "Адрес удален"
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

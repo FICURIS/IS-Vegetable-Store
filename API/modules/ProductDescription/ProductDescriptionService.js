@@ -1,38 +1,24 @@
 import ProductDescription from "./ProductDescription.js";
-import fileService from '../Post/fileService.js';
 
-class ProductDescriptionService{
-    async create(productDescription, picture) {
-            const fileName = fileService.saveFile(picture);
-            const createdProductDescription = await ProductDescription.create({...productDescription, picture: fileName});
-            return createdProductDescription;
+class ProductDescriptionService {
+    async create(data) {
+        return await ProductDescription.create(data);
     }
 
     async getAll() {
-            const productsDescription = await ProductDescription.find();
-            return productsDescription;
+        return await ProductDescription.find();
     }
 
     async getOne(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const productDescription = await ProductDescription.findById(id)
-            return productDescription;
+        return await ProductDescription.findById(id);
     }
-    async update(productDescription) {
-            if(!productDescription._id) {
-                throw new Error('не указан ID');
-            }
-            const udpatedProductDescription = await ProductDescription.findByIdAndUpdate(productDescription._id, productDescription, {new: true})
-            return updateProductDescription;
+
+    async update(id, data) {
+        return await ProductDescription.findByIdAndUpdate(id, data, { new: true });
     }
+
     async delete(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const productDescription = await ProductDescription.findByIdAndDelete(id)
-            return productDescription;
+        return await ProductDescription.findByIdAndDelete(id);
     }
 }
 

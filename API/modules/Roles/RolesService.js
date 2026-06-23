@@ -1,38 +1,24 @@
 import Roles from "./Roles.js";
-import fileService from '../Post/fileService.js';
 
-class RolesService{
-    async create(role, picture) {
-            const fileName = fileService.saveFile(picture);
-            const createdRole = await Roles.create({...role, picture: fileName});
-            return createdRole;
+class RolesService {
+    async create(data) {
+        return await Roles.create(data);
     }
 
     async getAll() {
-            const roles = await Roles.find();
-            return roles;
+        return await Roles.find();
     }
 
     async getOne(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const role = await Roles.findById(id)
-            return role;
+        return await Roles.findById(id);
     }
-    async update(role) {
-            if(!role._id) {
-                throw new Error('не указан ID');
-            }
-            const updatedRole = await Roles.findByIdAndUpdate(role._id, role, {new: true})
-            return updatedRole;
+
+    async update(id, data) {
+        return await Roles.findByIdAndUpdate(id, data, { new: true });
     }
+
     async delete(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const role = await Roles.findByIdAndDelete(id)
-            return role;
+        return await Roles.findByIdAndDelete(id);
     }
 }
 

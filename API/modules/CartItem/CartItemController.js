@@ -1,47 +1,88 @@
-import  CartItem from './CartItem.js';
 import CartItemService from "./CartItemService.js";
 
 class CartItemController {
     async create(req, res) {
+        const {
+            IdCart,
+            IdProducts,
+            Quantity,
+            PriceAtMoment
+        } = req.body;
+
         try {
-            console.log(req.files)
-            const cartItem = await CartItemService.create(req.body, req.files.picture);
-            res.json(cartItem)
-        } catch(e) {
-            res.status(500).json(e)
+            const cartItem = await CartItemService.create({
+                IdCart,
+                IdProducts,
+                Quantity,
+                PriceAtMoment
+            });
+
+            res.json(cartItem);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания позиции корзины: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
             const cartItems = await CartItemService.getAll();
-            return res.json(cartItems);
-        } catch (e){
-         res.status(500).json(e)
+            res.json(cartItems);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const cartItem = await CartItemService.getOne(req.params.id)
-                return res.json(cartItem)
-        } catch (e){
-            res.status(500).json(e)
+            const cartItem = await CartItemService.getOne(id);
+
+            if (!cartItem) {
+                return res.status(404).json({
+                    error: "Элемент корзины не найден"
+                });
+            }
+
+            res.json(cartItem);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+        const data = req.body;
+
         try {
-            const udpatedCartItem = await CartItemService.update(req.body);
-            return res.json(udpatedCartItem)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedCartItem = await CartItemService.update(id, data);
+            res.json(updatedCartItem);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const cartItem = await CartItemService.delete(req.params.id);
-            return res.json(cartItem)
-        } catch (e){
-            res.status(500).json(e)
+            await CartItemService.delete(id);
+
+            res.json({
+                message: "Элемент удален"
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

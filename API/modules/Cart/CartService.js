@@ -1,67 +1,59 @@
-import Cart from './Cart.js';
-import CartItem from '../CartItem/CartItem.js';
+import Cart from "./Cart.js";
+import CartItem from "../CartItem/CartItem.js";
 
 class CartService {
     async create(userId) {
-        try {
-            return await Cart.create({ IdUsers: userId });
-        } catch (e) {
-            throw new Error(`Ошибка создания корзины: ${e.message}`);
-        }
+        return await Cart.create({ IdUsers: userId });
+    }
+
+    async getAll() {
+        return await Cart.find();
+    }
+
+    async getOne(id) {
+        return await Cart.findById(id);
+    }
+
+    async update(id, data) {
+        return await Cart.findByIdAndUpdate(id, data, { new: true });
+    }
+
+    async delete(id) {
+        return await Cart.findByIdAndDelete(id);
     }
 
     async getByUserId(userId) {
-        try {
-            return await Cart.findOne({ IdUsers: userId });
-        } catch (e) {
-            throw new Error(`Ошибка получения корзины: ${e.message}`);
-        }
+        return await Cart.findOne({ IdUsers: userId });
     }
 
     async getCartItems(cartId) {
-        try {
-            return await CartItem.find({ IdCart: cartId })
-                .populate('IdProducts');
-        } catch (e) {
-            throw new Error(`Ошибка получения товаров корзины: ${e.message}`);
-        }
+        return await CartItem.find({ IdCart: cartId })
+            .populate("IdProducts");
     }
 
     async addItem(cartId, productId, quantity, price) {
-        try {
-            return await CartItem.create({
-                IdCart: cartId,
-                IdProducts: productId,
-                Quantity: quantity,
-                PriceAtMoment: price
-            });
-        } catch (e) {
-            throw new Error(`Ошибка добавления товара в корзину: ${e.message}`);
-        }
+        return await CartItem.create({
+            IdCart: cartId,
+            IdProducts: productId,
+            Quantity: quantity,
+            PriceAtMoment: price
+        });
     }
 
     async removeItem(itemId) {
-        try {
-            return await CartItem.findByIdAndDelete(itemId);
-        } catch (e) {
-            throw new Error(`Ошибка удаления товара из корзины: ${e.message}`);
-        }
+        return await CartItem.findByIdAndDelete(itemId);
     }
 
     async updateItemQuantity(itemId, quantity) {
-        try {
-            return await CartItem.findByIdAndUpdate(itemId, { Quantity: quantity }, { new: true });
-        } catch (e) {
-            throw new Error(`Ошибка обновления количества товара: ${e.message}`);
-        }
+        return await CartItem.findByIdAndUpdate(
+            itemId,
+            { Quantity: quantity },
+            { new: true }
+        );
     }
 
     async clearCart(cartId) {
-        try {
-            return await CartItem.deleteMany({ IdCart: cartId });
-        } catch (e) {
-            throw new Error(`Ошибка очистки корзины: ${e.message}`);
-        }
+        return await CartItem.deleteMany({ IdCart: cartId });
     }
 }
 

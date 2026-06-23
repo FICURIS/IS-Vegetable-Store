@@ -1,38 +1,29 @@
-import OrderItem from './OrderItems.js';
+import OrderItem from "./OrderItems.js";
 
-class OrderItemService{
-    async create(orderItem, picture) {
-            const fileName = fileService.saveFile(picture);
-            const createdOrderItem = await OrderItem.create({...orderItem, picture: fileName});
-            return createdOrderItem;
+class OrderItemsService {
+    async create(data) {
+        return await OrderItem.create(data);
     }
 
     async getAll() {
-            const orderItems = await OrderItem.find();
-            return orderItems;
+        return await OrderItem.find()
+            .populate("IdOrders")
+            .populate("IdCartItem");
     }
 
     async getOne(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const orderItem = await OrderItem.findById(id)
-            return orderItem;
+        return await OrderItem.findById(id)
+            .populate("IdOrders")
+            .populate("IdCartItem");
     }
-    async update(orderItem) {
-            if(!orderItem._id) {
-                throw new Error('не указан ID');
-            }
-            const udpatedOrderItem = await OrderItem.findByIdAndUpdate(orderItems._id, orderItem, {new: true})
-            return udpatedOrderItem;
+
+    async update(id, data) {
+        return await OrderItem.findByIdAndUpdate(id, data, { new: true });
     }
+
     async delete(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const orderItem = await Post.findByIdAndDelete(id)
-            return orderItem;
+        return await OrderItem.findByIdAndDelete(id);
     }
 }
 
-export default new OrderItemService();
+export default new OrderItemsService();

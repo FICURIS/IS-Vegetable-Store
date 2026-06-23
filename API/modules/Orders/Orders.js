@@ -1,23 +1,29 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const Orders = new mongoose.Schema({
-    IdUsers:{
+    IdUsers: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: "Users",
         required: true
     },
-    IdOrdersStatus:{
+    IdOrdersStatus: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'OrdersStatus',
+        ref: "OrdersStatus",
         required: true
     },
-    IdAddress:{
+    IdAddress: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address',
+        ref: "Address",
         required: true
     },
-    DateOrder: {type: Date, default: Date.now},
-    TotalPrice: {type: Number, required: true}
-})
+    DateOrder: {
+        type: Date,
+        default: Date.now
+    },
+    TotalPrice: {
+        type: Number,
+        required: true
+    }
+});
 
-export default mongoose.model('Orders',Orders)
+export default mongoose.model("Orders", Orders);

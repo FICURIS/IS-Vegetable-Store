@@ -1,0 +1,13 @@
+http://localhost:3000/api/users
+http://localhost:3000/api/categories/
+http://localhost:3000/api/addresses
+http://localhost:3000/api/carts
+http://localhost:3000/api/cartItems
+http://localhost:3000/api/products/
+http://localhost:3000/api/reviews/
+http://localhost:3000/api/orderItems
+http://localhost:3000/api/orders
+http://localhost:3000/api/ordersStatus
+http://localhost:3000/api/productsDescription
+http://localhost:3000/api/roles
+http://localhost:3000/api/usersRoles

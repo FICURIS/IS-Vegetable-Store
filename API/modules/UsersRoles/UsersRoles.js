@@ -1,16 +1,16 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const UsersRoles = new mongoose.Schema({
-    IdUsers:{
+    IdUsers: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: "Users",
         required: true
     },
-    IdRoles:{
+    IdRoles: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Roles',
+        ref: "Roles",
         required: true
     }
-})
+});
 
-export default mongoose.model('UsersRoles',UsersRoles)
+export default mongoose.model("UsersRoles", UsersRoles);

@@ -2,45 +2,103 @@ import ProductService from "./ProductService.js";
 
 class ProductController {
     async create(req, res) {
+        const {
+            Name,
+            Quantity,
+            Price,
+            IdCategories
+        } = req.body;
+
         try {
-            console.log(req.files)
-            const product = await ProductService.create(req.body);
-            res.json(product)
-        } catch(e) {
-            res.status(500).json(e.message)
+            if (!Name || Quantity === undefined || Price === undefined) {
+                return res.status(400).json({
+                    error: "Name, Quantity, Price обязательны"
+                });
+            }
+
+            const product = await ProductService.create({
+                Name,
+                Quantity,
+                Price,
+                IdCategories
+            });
+
+            res.json(product);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания продукта: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
-            const products = await ProductService.getAll();
-            return res.json(products);
-        } catch (e){
-         res.status(500).json(e)
+            const products = await ProductService.getAll(req.query);
+            res.json(products);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const product = await ProductService.getOne(req.params.id)
-                return res.json(product)
-        } catch (e){
-            res.status(500).json(e)
+            const product = await ProductService.getOne(id);
+
+            if (!product) {
+                return res.status(404).json({
+                    error: "Продукт не найден"
+                });
+            }
+
+            res.json(product);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+
+        const data = {
+            Name: req.body.Name ?? req.body.name,
+            Quantity: req.body.Quantity ?? req.body.quantity,
+            Price: req.body.Price ?? req.body.price,
+            IdCategories: req.body.IdCategories ?? req.body.category
+        };
+
+        Object.keys(data).forEach(
+            key => data[key] === undefined && delete data[key]
+        );
+
         try {
-            const udpatedProduct = await ProductService.update(req.body);
-            return res.json(udpatedProduct)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedProduct = await ProductService.update(id, data);
+            res.json(updatedProduct);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const product = await ProductService.delete(req.params.id);
-            return res.json(product)
-        } catch (e){
-            res.status(500).json(e)
+            await ProductService.delete(id);
+
+            res.json({
+                message: "Продукт удален"
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

@@ -1,47 +1,87 @@
-import  Orders from './Orders.js';
 import OrdersService from "./OrdersService.js";
 
 class OrdersController {
     async create(req, res) {
+        const {
+            IdUsers,
+            IdOrdersStatus,
+            IdAddress,
+            TotalPrice
+        } = req.body;
+
         try {
-            console.log(req.files)
-            const order = await OrdersService.create(req.body, req.files.picture);
-            res.json(order)
-        } catch(e) {
-            res.status(500).json(e)
+            const order = await OrdersService.create({
+                IdUsers,
+                IdOrdersStatus,
+                IdAddress,
+                TotalPrice
+            });
+
+            res.json(order);
+        } catch (e) {
+            res.status(500).json({
+                error: `Ошибка создания заказа: ${e.message}`
+            });
         }
     }
 
     async getAll(req, res) {
         try {
             const orders = await OrdersService.getAll();
-            return res.json(orders);
-        } catch (e){
-         res.status(500).json(e)
+            res.json(orders);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async getOne(req, res) {
+        const { id } = req.params;
+
         try {
-            const order = await OrdersService.getOne(req.params.id)
-                return res.json(order)
-        } catch (e){
-            res.status(500).json(e)
+            const order = await OrdersService.getOne(id);
+
+            if (!order) {
+                return res.status(404).json({
+                    error: "Заказ не найден"
+                });
+            }
+
+            res.json(order);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async update(req, res) {
+        const { id } = req.params;
+
         try {
-            const udpatedOrder = await OrdersService.update(req.body);
-            return res.json(udpatedOrder)
-        } catch (e){
-            res.status(500).json(e.message)
+            const updatedOrder = await OrdersService.update(id, req.body);
+            res.json(updatedOrder);
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
+
     async delete(req, res) {
+        const { id } = req.params;
+
         try {
-            const order = await OrdersService.delete(req.params.id);
-            return res.json(order)
-        } catch (e){
-            res.status(500).json(e)
+            await OrdersService.delete(id);
+
+            res.json({
+                message: "Заказ удален"
+            });
+        } catch (e) {
+            res.status(500).json({
+                error: e.message
+            });
         }
     }
 }

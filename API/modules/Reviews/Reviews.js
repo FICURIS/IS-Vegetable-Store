@@ -1,18 +1,27 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const Reviews = new mongoose.Schema({
-    IdProducts:{
+    IdProducts: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Products',
+        ref: "Products",
         required: true
     },
-    IdOrders:{
+    IdOrders: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Orders'
+        ref: "Orders"
     },
-    Date:{type: Date, default: Date.now},
-    Rating:{type: Number, min: 1, max: 5},
-    Text:{type: String}
-})
+    Date: {
+        type: Date,
+        default: Date.now
+    },
+    Rating: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    Text: {
+        type: String
+    }
+});
 
-export default mongoose.model('Reviews',Reviews)
+export default mongoose.model("Reviews", Reviews);

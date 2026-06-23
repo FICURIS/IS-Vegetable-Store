@@ -1,38 +1,24 @@
 import CartItem from "./CartItem.js";
-import fileService from '../Post/fileService.js';
 
-class CartItemService{
-    async create(cartItem, picture) {
-            const fileName = fileService.saveFile(picture);
-            const createdCartItem = await CartItem.create({...cartItem, picture: fileName});
-            return createdCartItem;
+class CartItemService {
+    async create(data) {
+        return await CartItem.create(data);
     }
 
     async getAll() {
-            const cartItems = await CartItem.find();
-            return cartItems;
+        return await CartItem.find();
     }
 
     async getOne(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const cartItem = await CartItem.findById(id)
-            return cartItem;
+        return await CartItem.findById(id);
     }
-    async update(cartItem) {
-            if(!cartItem._id) {
-                throw new Error('не указан ID');
-            }
-            const updatedCartItem = await CartItem.findByIdAndUpdate(cartItem._id, cartItem, {new: true})
-            return updatedCartItem;
+
+    async update(id, data) {
+        return await CartItem.findByIdAndUpdate(id, data, { new: true });
     }
+
     async delete(id) {
-            if (!id) {
-                throw new Error('не указан ID');
-            }
-            const cartItem = await CartItem.findByIdAndDelete(id)
-            return cartItem;
+        return await CartItem.findByIdAndDelete(id);
     }
 }
 

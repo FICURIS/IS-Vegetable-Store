@@ -1,38 +1,29 @@
 import Address from "./Address.js";
 
 class AddressService {
-    async create(address) {
-        return await AddressService.Create(address);
+    async create(data) {
+        return await Address.create(data);
     }
 
     async getAll() {
-        const addresses = await Address.find();
-        return addresses;
-}
-
-    async getOne() {
-        if (!id) {
-            throw new Error('не указан ID')
-        }
-           const address = await Address.findById(id)
-        return address;
+        return await Address.find();
     }
 
-    async update(address) {
-        if(!address._id) {
-            throw new Error('не указан ID')
-        }
-        const udpatedAddress = await Address.findByIdAndUpdate(address._id, address, {new: true})
-        return updateAddress
+    async getOne(id) {
+        return await Address.findById(id);
+    }
+
+    async update(id, data) {
+        return await Address.findByIdAndUpdate(
+            id,
+            data,
+            { new: true }
+        );
     }
 
     async delete(id) {
-        if (!id) {
-            throw new Error('не указан ID')
-        }
-        const address = await Address.findByIdAndDelete(id)
-        return address
+        return await Address.findByIdAndDelete(id);
     }
 }
 
-export default new AddressService
+export default new AddressService();

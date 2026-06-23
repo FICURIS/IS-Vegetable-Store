@@ -1,17 +1,25 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const OrderItems = new mongoose.Schema({
-    IdOrders:{
+    IdOrders: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Orders',
+        ref: "Orders",
         required: true
     },
-    IdCartItem:{
+    IdCartItem: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'CartItem'
+        ref: "CartItem",
+        required: true
     },
-    Quantity:{type: Number, min: 1, required: true},
-    Price:{type: Number, required: true}
-})
+    Quantity: {
+        type: Number,
+        min: 1,
+        required: true
+    },
+    Price: {
+        type: Number,
+        required: true
+    }
+});
 
-export default mongoose.model('OrderItems',OrderItems)
+export default mongoose.model("OrderItems", OrderItems);

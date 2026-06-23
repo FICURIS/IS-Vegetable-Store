@@ -1,13 +1,17 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const ProductDescription = new mongoose.Schema({
-    IdProducts:{
+    IdProducts: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Products',
+        ref: "Products",
         required: true
     },
-    Variety:{type: String},
-    Text:{type: String}
-})
+    Variety: {
+        type: String
+    },
+    Text: {
+        type: String
+    }
+});
 
-export default mongoose.model('ProductDescription',ProductDescription)
+export default mongoose.model("ProductDescription", ProductDescription);

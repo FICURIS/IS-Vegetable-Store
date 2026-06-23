@@ -1,7 +1,10 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const Roles = new mongoose.Schema({
-    Name:{type: String, required: true}
-})
+    name: {
+        type: String,
+        required: true
+    }
+});
 
-export default mongoose.model('Roles',Roles)
+export default mongoose.model("Roles", Roles);

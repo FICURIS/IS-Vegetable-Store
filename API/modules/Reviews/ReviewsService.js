@@ -1,60 +1,35 @@
 import Reviews from "./Reviews.js";
 
-class ReviewService {
+class ReviewsService {
     async create(data) {
-        try {
-            return await Review.create(data);
-        } catch (e) {
-            throw new Error(`Ошибка создания отзыва: ${e.message}`);
-        }
+        return await Reviews.create(data);
     }
 
     async getAll() {
-        try {
-            return await Review.find()
-                .populate('IdProducts')
-                .populate('IdUsers')
-                .populate('IdOrders');
-        } catch (e) {
-            throw new Error(`Ошибка получения отзывов: ${e.message}`);
-        }
-    }
-
-    async getByProduct(productId) {
-        try {
-            return await Review.find({ IdProducts: productId })
-                .populate('IdUsers');
-        } catch (e) {
-            throw new Error(`Ошибка получения отзывов товара: ${e.message}`);
-        }
+        return await Reviews.find()
+            .populate("IdProducts")
+            .populate("IdOrders");
     }
 
     async getOne(id) {
-        try {
-            return await Review.findById(id)
-                .populate('IdProducts')
-                .populate('IdUsers')
-                .populate('IdOrders');
-        } catch (e) {
-            throw new Error(`Ошибка получения отзыва: ${e.message}`);
-        }
+        return await Reviews.findById(id)
+            .populate("IdProducts")
+            .populate("IdOrders");
+    }
+
+    async getByProduct(productId) {
+        return await Reviews.find({ IdProducts: productId })
+            .populate("IdProducts")
+            .populate("IdOrders");
     }
 
     async update(id, data) {
-        try {
-            return await Review.findByIdAndUpdate(id, data, { new: true });
-        } catch (e) {
-            throw new Error(`Ошибка обновления отзыва: ${e.message}`);
-        }
+        return await Reviews.findByIdAndUpdate(id, data, { new: true });
     }
 
     async delete(id) {
-        try {
-            return await Review.findByIdAndDelete(id);
-        } catch (e) {
-            throw new Error(`Ошибка удаления отзыва: ${e.message}`);
-        }
+        return await Reviews.findByIdAndDelete(id);
     }
 }
 
-export default new ReviewService();
+export default new ReviewsService();
