@@ -67,7 +67,7 @@ class CartService {
         const normalized = Number(quantity);
 
         if (!Number.isInteger(normalized) || normalized < 1) {
-            const error = new Error("Quantity must be a positive integer");
+            const error = new Error("Количество должно быть положительным целым числом");
             error.statusCode = 400;
             throw error;
         }
@@ -94,7 +94,7 @@ class CartService {
         const newQuantity = (existingItem?.Quantity || 0) + requestedQuantity;
 
         if (newQuantity > product.Quantity) {
-            const error = new Error(`Only ${product.Quantity} units of this product are available`);
+            const error = new Error(`В наличии имеется только ${product.Quantity} единица этого товара`);
             error.statusCode = 409;
             throw error;
         }
@@ -124,13 +124,13 @@ class CartService {
         const item = await CartItem.findById(itemId).populate("IdProducts");
 
         if (!item) {
-            const error = new Error("Cart item not found");
+            const error = new Error("Товар в корзине не найден");
             error.statusCode = 404;
             throw error;
         }
 
         if (normalizedQuantity > item.IdProducts.Quantity) {
-            const error = new Error(`Only ${item.IdProducts.Quantity} units of this product are available`);
+            const error = new Error(`В наличии имеется только ${item.IdProducts.Quantity} единица этого товара`);
             error.statusCode = 409;
             throw error;
         }

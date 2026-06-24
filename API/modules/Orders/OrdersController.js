@@ -36,7 +36,7 @@ class OrdersController {
         try {
             if (!userId || !addressId) {
                 return res.status(400).json({
-                    error: "userId and addressId are required"
+                    error: "userId и addressId обязательны"
                 });
             }
 
@@ -64,7 +64,7 @@ class OrdersController {
 
             if (!order) {
                 return res.status(404).json({
-                    error: "Order not found"
+                    error: "Заказ не найден"
                 });
             }
 
@@ -103,7 +103,7 @@ class OrdersController {
         try {
             if (!statusId) {
                 return res.status(400).json({
-                    error: "statusId is required"
+                    error: "statusId обязателен"
                 });
             }
 
@@ -132,7 +132,7 @@ class OrdersController {
             await OrdersService.delete(id);
 
             res.json({
-                message: "Order deleted"
+                message: "Заказ удален"
             });
         } catch (e) {
             this.sendError(res, e);

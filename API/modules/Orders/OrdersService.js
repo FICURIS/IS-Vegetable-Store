@@ -83,7 +83,7 @@ class OrdersService {
                 }).session(session);
 
                 if (!address) {
-                    const error = new Error("Address not found for this user");
+                    const error = new Error("Адрес не найден или не принадлежит пользователю");
                     error.statusCode = 404;
                     throw error;
                 }
@@ -91,7 +91,7 @@ class OrdersService {
                 const cart = await Cart.findOne({ IdUsers: userId }).session(session);
 
                 if (!cart) {
-                    const error = new Error("Cart not found");
+                    const error = new Error("Корзина не найдена");
                     error.statusCode = 404;
                     throw error;
                 }
@@ -101,7 +101,7 @@ class OrdersService {
                     .session(session);
 
                 if (cartItems.length === 0) {
-                    const error = new Error("Cart is empty");
+                    const error = new Error("Корзина пуста");
                     error.statusCode = 400;
                     throw error;
                 }
@@ -113,7 +113,7 @@ class OrdersService {
                     const product = cartItem.IdProducts;
 
                     if (!product) {
-                        const error = new Error("Cart contains a deleted product");
+                        const error = new Error("Корзина содержит удаленный товар");
                         error.statusCode = 409;
                         throw error;
                     }
@@ -128,7 +128,7 @@ class OrdersService {
                     );
 
                     if (!updatedProduct) {
-                        const error = new Error(`Not enough stock for product ${product.Name}`);
+                        const error = new Error(`Недостаточно товара в наличии для продукта ${product.Name}`);
                         error.statusCode = 409;
                         throw error;
                     }
@@ -187,7 +187,7 @@ class OrdersService {
         const order = await Order.findById(orderId).populate("IdOrdersStatus");
 
         if (!order) {
-            const error = new Error("Order not found");
+            const error = new Error("Заказ не найден");
             error.statusCode = 404;
             throw error;
         }
@@ -195,19 +195,19 @@ class OrdersService {
         const nextStatus = await OrdersStatus.findById(statusId);
 
         if (!nextStatus) {
-            const error = new Error("Order status not found");
+            const error = new Error("Статус заказа не найден");
             error.statusCode = 404;
             throw error;
         }
 
         if (this.isFinalStatus(order.IdOrdersStatus?.Name)) {
-            const error = new Error("Finalized order status cannot be changed");
+            const error = new Error("Статус завершенного заказа не может быть изменен");
             error.statusCode = 409;
             throw error;
         }
 
         if (this.isNewStatus(nextStatus.Name) && !this.isNewStatus(order.IdOrdersStatus?.Name)) {
-            const error = new Error("Order cannot be returned to New status");
+            const error = new Error("Заказ не может быть возвращен к статусу Новый");
             error.statusCode = 409;
             throw error;
         }
@@ -228,13 +228,13 @@ class OrdersService {
                     .session(session);
 
                 if (!order) {
-                    const error = new Error("Order not found");
+                    const error = new Error("Заказ не найден");
                     error.statusCode = 404;
                     throw error;
                 }
 
                 if (this.isDeliveredStatus(order.IdOrdersStatus?.Name)) {
-                    const error = new Error("Delivered order cannot be cancelled");
+                    const error = new Error("Доставленный заказ не может быть отменен");
                     error.statusCode = 409;
                     throw error;
                 }
