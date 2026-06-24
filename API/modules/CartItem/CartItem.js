@@ -18,8 +18,11 @@ const CartItem = new mongoose.Schema({
     },
     PriceAtMoment: {
         type: Number,
+        min: 0,
         required: true
     }
 });
+
+CartItem.index({ IdCart: 1, IdProducts: 1 }, { unique: true });
 
 export default mongoose.model("CartItem", CartItem);

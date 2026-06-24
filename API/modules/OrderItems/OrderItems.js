@@ -6,10 +6,13 @@ const OrderItems = new mongoose.Schema({
         ref: "Orders",
         required: true
     },
+    IdProducts: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Products"
+    },
     IdCartItem: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "CartItem",
-        required: true
+        ref: "CartItem"
     },
     Quantity: {
         type: Number,

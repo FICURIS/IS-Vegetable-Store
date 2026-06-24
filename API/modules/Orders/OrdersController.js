@@ -1,6 +1,12 @@
 import OrdersService from "./OrdersService.js";
 
 class OrdersController {
+    sendError(res, error) {
+        res.status(error.statusCode || 500).json({
+            error: error.message
+        });
+    }
+
     async create(req, res) {
         const {
             IdUsers,
@@ -17,11 +23,27 @@ class OrdersController {
                 TotalPrice
             });
 
-            res.json(order);
+            res.status(201).json(order);
         } catch (e) {
-            res.status(500).json({
-                error: `Ошибка создания заказа: ${e.message}`
-            });
+            this.sendError(res, e);
+        }
+    }
+
+    async checkout(req, res) {
+        const userId = req.body.IdUsers ?? req.body.userId;
+        const addressId = req.body.IdAddress ?? req.body.addressId;
+
+        try {
+            if (!userId || !addressId) {
+                return res.status(400).json({
+                    error: "userId and addressId are required"
+                });
+            }
+
+            const order = await OrdersService.checkout(userId, addressId);
+            res.status(201).json(order);
+        } catch (e) {
+            this.sendError(res, e);
         }
     }
 
@@ -30,9 +52,7 @@ class OrdersController {
             const orders = await OrdersService.getAll();
             res.json(orders);
         } catch (e) {
-            res.status(500).json({
-                error: e.message
-            });
+            this.sendError(res, e);
         }
     }
 
@@ -44,15 +64,24 @@ class OrdersController {
 
             if (!order) {
                 return res.status(404).json({
-                    error: "Заказ не найден"
+                    error: "Order not found"
                 });
             }
 
             res.json(order);
         } catch (e) {
-            res.status(500).json({
-                error: e.message
-            });
+            this.sendError(res, e);
+        }
+    }
+
+    async getByUser(req, res) {
+        const { userId } = req.params;
+
+        try {
+            const orders = await OrdersService.getByUserId(userId);
+            res.json(orders);
+        } catch (e) {
+            this.sendError(res, e);
         }
     }
 
@@ -63,9 +92,36 @@ class OrdersController {
             const updatedOrder = await OrdersService.update(id, req.body);
             res.json(updatedOrder);
         } catch (e) {
-            res.status(500).json({
-                error: e.message
-            });
+            this.sendError(res, e);
+        }
+    }
+
+    async updateStatus(req, res) {
+        const { id } = req.params;
+        const statusId = req.body.IdOrdersStatus ?? req.body.statusId;
+
+        try {
+            if (!statusId) {
+                return res.status(400).json({
+                    error: "statusId is required"
+                });
+            }
+
+            const order = await OrdersService.updateStatus(id, statusId);
+            res.json(order);
+        } catch (e) {
+            this.sendError(res, e);
+        }
+    }
+
+    async cancel(req, res) {
+        const { id } = req.params;
+
+        try {
+            const order = await OrdersService.cancel(id);
+            res.json(order);
+        } catch (e) {
+            this.sendError(res, e);
         }
     }
 
@@ -76,12 +132,10 @@ class OrdersController {
             await OrdersService.delete(id);
 
             res.json({
-                message: "Заказ удален"
+                message: "Order deleted"
             });
         } catch (e) {
-            res.status(500).json({
-                error: e.message
-            });
+            this.sendError(res, e);
         }
     }
 }
